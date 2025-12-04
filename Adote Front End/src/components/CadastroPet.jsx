@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { criarPet } from '../services/api';
-import styles from './CadastroPet.module.css';
+import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { criarPet } from '../services/api'
+import styles from './CadastroPet.module.css'
 
 export default function CadastroPet() {
-    const navigate = useNavigate();
+    const navigate = useNavigate()
     const [formData, setFormData] = useState({
         nome: '',
         especie: '',
@@ -12,34 +12,35 @@ export default function CadastroPet() {
         genero: '',
         idade: '',
         descricao: ''
-    });
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState('');
+    })
+    const [loading, setLoading] = useState(false)
+    const [error, setError] = useState('')
 
     const handleChange = (e) => {
-        const { name, value } = e.target;
+        const { name, value } = e.target
         setFormData(prev => ({
             ...prev,
             [name]: value
-        }));
-    };
+        }))
+    }
 
     const handleSubmit = async (e) => {
-        e.preventDefault();
-        setLoading(true);
-        setError('');
+        e.preventDefault()
+        setLoading(true)
+        setError('')
 
         try {
-            await criarPet(formData);
-            alert('Pet cadastrado com sucesso!');
-            navigate('/homepage'); // Redirect to homepage or list after success
+            await criarPet(formData)
+            alert('Pet cadastrado com sucesso!')
+            // Redireciono para a homepage após o cadastro com sucesso
+            navigate('/homepage')
         } catch (err) {
-            console.error(err);
-            setError('Erro ao cadastrar pet. Verifique se você é admin e tente novamente.');
+            console.error(err)
+            setError('Erro ao cadastrar pet. Verifique se você é admin e tente novamente.')
         } finally {
-            setLoading(false);
+            setLoading(false)
         }
-    };
+    }
 
     return (
         <div className={styles.container}>
@@ -109,20 +110,20 @@ export default function CadastroPet() {
                             <option value="Fêmea">Fêmea</option>
                         </select>
                     </div>
+                </div>
 
-                    <div className={styles.inputGroup}>
-                        <label className={styles.label} htmlFor="idade">Idade</label>
-                        <input
-                            className={styles.input}
-                            type="text"
-                            id="idade"
-                            name="idade"
-                            placeholder="Ex: 2 anos"
-                            value={formData.idade}
-                            onChange={handleChange}
-                            required
-                        />
-                    </div>
+                <div className={styles.inputGroup}>
+                    <label className={styles.label} htmlFor="idade">Idade</label>
+                    <input
+                        className={styles.input}
+                        type="text"
+                        id="idade"
+                        name="idade"
+                        placeholder="Ex: 2 anos"
+                        value={formData.idade}
+                        onChange={handleChange}
+                        required
+                    />
                 </div>
 
                 <div className={styles.inputGroup}>
@@ -145,5 +146,5 @@ export default function CadastroPet() {
                 </button>
             </form>
         </div>
-    );
+    )
 }

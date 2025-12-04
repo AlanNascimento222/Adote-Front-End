@@ -1,10 +1,10 @@
-import React from 'react';
-import { useLocation, Link } from 'react-router-dom';
-import styles from './AdocaoSucesso.module.css';
+import React from 'react'
+import { useLocation, Link } from 'react-router-dom'
+import styles from './AdocaoSucesso.module.css'
 
 export default function AdocaoSucesso() {
-    const location = useLocation();
-    const { senha, validade } = location.state || {};
+    const location = useLocation()
+    const { senha, validade } = location.state || {}
 
     return (
         <div className={styles.container}>
@@ -32,5 +32,5 @@ export default function AdocaoSucesso() {
                 </div>
             </div>
         </div>
-    );
+    )
 }

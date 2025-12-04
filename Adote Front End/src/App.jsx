@@ -9,6 +9,7 @@ import DetalhesPet from './components/DetalhesPet'
 import AdocaoSucesso from './components/AdocaoSucesso'
 
 export default function App() {
+  // Aqui eu defino as rotas da minha aplicação para navegar entre as páginas
   return (
     <Router>
       <Routes>

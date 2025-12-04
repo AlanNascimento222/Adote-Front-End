@@ -1,68 +1,68 @@
-import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import styles from '../Homepage.module.css';
-import { listarPets, api } from '../services/api';
+import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import styles from '../Homepage.module.css'
+import { listarPets, api } from '../services/api'
 
 export default function Homepage() {
-    const [pets, setPets] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [erro, setErro] = useState('');
-    const [searchTerm, setSearchTerm] = useState('');
-    const [genderFilter, setGenderFilter] = useState('');
-    const navigate = useNavigate();
-    const [userName, setUserName] = useState('');
-    const [isAdmin, setIsAdmin] = useState(false);
+    const [pets, setPets] = useState([])
+    const [loading, setLoading] = useState(true)
+    const [erro, setErro] = useState('')
+    const [searchTerm, setSearchTerm] = useState('')
+    const [genderFilter, setGenderFilter] = useState('')
+    const navigate = useNavigate()
+    const [userName, setUserName] = useState('')
+    const [isAdmin, setIsAdmin] = useState(false)
 
     const handleLogout = () => {
-        localStorage.removeItem('token');
-        localStorage.removeItem('usuarioNome');
-        localStorage.removeItem('usuarioAdmin');
-        localStorage.removeItem('usuarioId');
-        api.defaults.headers.common['Authorization'] = '';
-        navigate('/');
-    };
+        localStorage.removeItem('token')
+        localStorage.removeItem('usuarioNome')
+        localStorage.removeItem('usuarioAdmin')
+        localStorage.removeItem('usuarioId')
+        api.defaults.headers.common['Authorization'] = ''
+        navigate('/')
+    }
 
     useEffect(() => {
-        const storedName = localStorage.getItem('usuarioNome');
-        const storedAdmin = localStorage.getItem('usuarioAdmin');
+        const storedName = localStorage.getItem('usuarioNome')
+        const storedAdmin = localStorage.getItem('usuarioAdmin')
 
-        if (storedName) setUserName(storedName);
-        // O admin pode vir como boolean ou string "true"/"false" ou 1/0
-        setIsAdmin(storedAdmin === 'true' || storedAdmin === true || storedAdmin === '1');
+        if (storedName) setUserName(storedName)
+        // Verifico se o usuário é admin (pode vir como string ou boolean)
+        setIsAdmin(storedAdmin === 'true' || storedAdmin === true || storedAdmin === '1')
 
         const carregarPets = async () => {
             try {
-                const listaDePets = await listarPets();
-                // O banco retorna um array de objetos (id, nome, especie, etc)
-                setPets(listaDePets);
+                const listaDePets = await listarPets()
+                // Atualizo o estado com a lista de pets retornada pelo banco
+                setPets(listaDePets)
             } catch (error) {
-                console.error("Erro ao buscar pets:", error);
-                setErro("Não foi possível carregar os pets. Verifique seu login.");
+                console.error("Erro ao buscar pets:", error)
+                setErro("Não foi possível carregar os pets. Verifique seu login.")
             } finally {
-                setLoading(false);
+                setLoading(false)
             }
-        };
+        }
 
-        carregarPets();
-    }, []);
+        carregarPets()
+    }, [])
 
-    // Função de filtragem
+    // Filtro os pets com base na busca e no gênero selecionado
     const filteredPets = pets.filter(pet => {
         // Filtro de Texto (Nome, Raça, Espécie)
         const matchesSearch =
             pet.nome?.toLowerCase().includes(searchTerm.toLowerCase()) ||
             pet.raca?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            pet.especie?.toLowerCase().includes(searchTerm.toLowerCase());
+            pet.especie?.toLowerCase().includes(searchTerm.toLowerCase())
 
         // Filtro de Gênero
-        const matchesGender = genderFilter ? pet.genero === genderFilter : true;
+        const matchesGender = genderFilter ? pet.genero === genderFilter : true
 
-        return matchesSearch && matchesGender;
-    });
+        return matchesSearch && matchesGender
+    })
 
     return (
         <div className={styles.container}>
-            {/* Header */}
+            {/* Cabeçalho */}
             <header className={styles.header}>
                 <div className={styles.logo}> Adote <div className={styles.logoImage}></div></div>
                 <div className={styles.navButtons}>
@@ -96,14 +96,14 @@ export default function Homepage() {
                 </div>
             </header>
 
-            {/* Hero Section */}
+            {/* Seção Hero */}
             <section className={styles.hero}>
                 <div className={styles.heroContent}>
                     <h1>Procurando um amigo?</h1>
                     <span className={styles.highlight}>Então está no lugar certo</span>
                 </div>
                 <div className={styles.heroImage}>
-                    {/* Imagem estática ilustrativa para o banner */}
+                    {/* Imagem ilustrativa para o banner */}
                     <img src="https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&q=80&w=500" alt="Cachorro Feliz" />
                 </div>
             </section>
@@ -151,7 +151,7 @@ export default function Homepage() {
                                 onClick={() => navigate(`/pet/${pet.id}`)}
                                 style={{ cursor: 'pointer' }}
                             >
-                                {/* Como não tem foto no BD, usamos placeholder */}
+                                {/* Exibo placeholder se não houver foto */}
                                 <div className={styles.cardInfo}>
                                     <h3>{pet.nome}</h3>
                                     <div className={styles.petDetails}>
@@ -174,5 +174,5 @@ export default function Homepage() {
                 )}
             </div>
         </div>
-    );
+    )
 }

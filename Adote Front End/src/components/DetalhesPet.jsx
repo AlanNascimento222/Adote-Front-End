@@ -1,72 +1,72 @@
-import React, { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { listarPets, adotarPet } from '../services/api';
-import styles from './DetalhesPet.module.css';
+import React, { useEffect, useState } from 'react'
+import { useParams, useNavigate } from 'react-router-dom'
+import { listarPets, adotarPet } from '../services/api'
+import styles from './DetalhesPet.module.css'
 
 export default function DetalhesPet() {
-    const { id } = useParams();
-    const navigate = useNavigate();
-    const [pet, setPet] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState('');
+    const { id } = useParams()
+    const navigate = useNavigate()
+    const [pet, setPet] = useState(null)
+    const [loading, setLoading] = useState(true)
+    const [error, setError] = useState('')
 
     useEffect(() => {
         const fetchPet = async () => {
-            console.log("Buscando detalhes do pet ID:", id);
+            console.log("Buscando detalhes do pet ID:", id)
             try {
-                const todosPets = await listarPets();
-                console.log("Pets carregados:", todosPets);
+                const todosPets = await listarPets()
+                console.log("Pets carregados:", todosPets)
 
-                // O ID da URL vem como string, garantir comparação correta
-                const petEncontrado = todosPets.find(p => String(p.id) === String(id));
-                console.log("Pet encontrado:", petEncontrado);
+                // Garanto que a comparação do ID seja feita como string para evitar erros de tipo
+                const petEncontrado = todosPets.find(p => String(p.id) === String(id))
+                console.log("Pet encontrado:", petEncontrado)
 
                 if (petEncontrado) {
-                    setPet(petEncontrado);
+                    setPet(petEncontrado)
                 } else {
-                    setError('Pet não encontrado.');
+                    setError('Pet não encontrado.')
                 }
             } catch (err) {
-                console.error("Erro no fetchPet:", err);
-                setError('Erro ao carregar detalhes do pet.');
+                console.error("Erro no fetchPet:", err)
+                setError('Erro ao carregar detalhes do pet.')
             } finally {
-                setLoading(false);
+                setLoading(false)
             }
-        };
+        }
 
-        fetchPet();
-    }, [id]);
+        fetchPet()
+    }, [id])
 
     const handleAdotar = async () => {
         try {
-            const response = await adotarPet(pet.id);
+            const response = await adotarPet(pet.id)
 
-            // Calcula a data de validade (7 dias a partir de hoje)
-            const hoje = new Date();
-            const dataValidade = new Date(hoje);
-            dataValidade.setDate(hoje.getDate() + 7);
+            // Calculo a data de validade para 7 dias a partir de hoje
+            const hoje = new Date()
+            const dataValidade = new Date(hoje)
+            dataValidade.setDate(hoje.getDate() + 7)
 
-            const dia = String(dataValidade.getDate()).padStart(2, '0');
-            const mes = String(dataValidade.getMonth() + 1).padStart(2, '0');
-            const ano = dataValidade.getFullYear();
-            const validadeFormatada = `${dia}/${mes}/${ano}`;
+            const dia = String(dataValidade.getDate()).padStart(2, '0')
+            const mes = String(dataValidade.getMonth() + 1).padStart(2, '0')
+            const ano = dataValidade.getFullYear()
+            const validadeFormatada = `${dia}/${mes}/${ano}`
 
-            // Navega para a página de sucesso com os dados retornados
+            // Redireciono para a página de sucesso enviando os dados da adoção
             navigate('/adocao-sucesso', {
                 state: {
                     senha: response.senha || '12345',
                     validade: validadeFormatada
                 }
-            });
+            })
         } catch (error) {
-            console.error("Erro ao adotar:", error);
-            alert("Erro ao realizar adoção. Tente novamente.");
+            console.error("Erro ao adotar:", error)
+            alert("Erro ao realizar adoção. Tente novamente.")
         }
-    };
+    }
 
-    if (loading) return <div className={styles.container}>Carregando...</div>;
-    if (error) return <div className={styles.container}>{error}</div>;
-    if (!pet) return null;
+    if (loading) return <div className={styles.container}>Carregando...</div>
+    if (error) return <div className={styles.container}>{error}</div>
+    if (!pet) return null
 
     return (
         <div className={styles.container}>
@@ -114,5 +114,5 @@ export default function DetalhesPet() {
 
             </div>
         </div>
-    );
+    )
 }

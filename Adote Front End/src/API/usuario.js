@@ -2,7 +2,7 @@ import axios from 'axios'
 
 const api = axios.create({
     baseURL: "https://adote-back-end.onrender.com",
-});
+})
 
 async function login(credentials) {
     try {
@@ -16,9 +16,9 @@ async function login(credentials) {
             throw "Erro na requisição"
         }
         return response.data
-    } catch(err) {
+    } catch (err) {
         return err
     }
 }
 
-export { login } 
+export { login }

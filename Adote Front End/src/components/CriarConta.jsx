@@ -1,10 +1,10 @@
-import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import styles from '../CriarConta.module.css'; 
-import { criarUsuario } from '../services/api'; 
+import { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import styles from '../CriarConta.module.css'
+import { criarUsuario } from '../services/api'
 
 export default function CriarConta() {
-    const navigate = useNavigate();
+    const navigate = useNavigate()
 
     const [formData, setFormData] = useState({
         nome: '',
@@ -14,45 +14,45 @@ export default function CriarConta() {
         cpf: '',
         telefone: '',
         tipo: 'usuario'
-    });
+    })
 
-    const [erro, setErro] = useState('');
-    const [sucesso, setSucesso] = useState('');
-    const [loading, setLoading] = useState(false);
+    const [erro, setErro] = useState('')
+    const [sucesso, setSucesso] = useState('')
+    const [loading, setLoading] = useState(false)
 
     const handleChange = (e) => {
-        const { name, value } = e.target;
+        const { name, value } = e.target
         setFormData(prev => ({
             ...prev,
             [name]: value
-        }));
-    };
+        }))
+    }
 
     const handleSubmit = async (e) => {
-        e.preventDefault();
-        setErro('');
-        setSucesso('');
+        e.preventDefault()
+        setErro('')
+        setSucesso('')
 
-        // --- Validações Locais (Frontend) ---
+        // Faço as validações locais dos dados antes de enviar para o backend
         if (!formData.nome || !formData.email || !formData.senha || !formData.cpf || !formData.telefone) {
-            setErro('Preencha todos os campos obrigatórios');
-            return;
+            setErro('Preencha todos os campos obrigatórios')
+            return
         }
 
         if (formData.senha !== formData.confirmarSenha) {
-            setErro('As senhas não coincidem');
-            return;
+            setErro('As senhas não coincidem')
+            return
         }
 
         if (formData.senha.length < 6) {
-            setErro('A senha deve ter no mínimo 6 caracteres');
-            return;
+            setErro('A senha deve ter no mínimo 6 caracteres')
+            return
         }
 
         try {
-            setLoading(true);
+            setLoading(true)
 
-            // Prepara o objeto exatamente como o backend espera
+            // Preparo o objeto com os dados do usuário para enviar ao backend
             const payload = {
                 nome: formData.nome,
                 email: formData.email,
@@ -60,32 +60,30 @@ export default function CriarConta() {
                 cpf: formData.cpf,
                 telefone: formData.telefone,
                 tipo: formData.tipo
-            };
+            }
 
-            // --- CHAMADA DA API VIA AXIOS ---
-            // A função criarUsuario já faz o POST e retorna os dados
-            const dadosRetorno = await criarUsuario(payload);
+            // Chamo a função que faz a requisição POST para criar o usuário
+            const dadosRetorno = await criarUsuario(payload)
 
-            // Se chegou aqui, deu sucesso (201)
-            setSucesso('Conta criada com sucesso! Redirecionando...');
-            
+            // Se a criação for bem sucedida, exibo mensagem de sucesso e redireciono
+            setSucesso('Conta criada com sucesso! Redirecionando...')
+
             setTimeout(() => {
-                navigate('/login');
-            }, 2000);
+                navigate('/login')
+            }, 2000)
 
         } catch (error) {
-            // --- TRATAMENTO DE ERRO DO AXIOS ---
-            // O Axios joga o erro do backend em error.response.data
+            // Trato possíveis erros retornados pela API
             if (error.response && error.response.data && error.response.data.mensagem) {
-                setErro(error.response.data.mensagem);
+                setErro(error.response.data.mensagem)
             } else {
-                setErro('Erro ao conectar com o servidor. Tente novamente.');
+                setErro('Erro ao conectar com o servidor. Tente novamente.')
             }
-            console.error("Erro detalhado:", error);
+            console.error("Erro detalhado:", error)
         } finally {
-            setLoading(false);
+            setLoading(false)
         }
-    };
+    }
 
     return (
         <div className={styles.container}>
@@ -152,11 +150,11 @@ export default function CriarConta() {
 
                     <div className={styles.formGroup}>
                         <label htmlFor="tipo" className={styles.label}>Eu quero:</label>
-                        <select 
-                            id="tipo" 
-                            name="tipo" 
-                            className={styles.input} 
-                            value={formData.tipo} 
+                        <select
+                            id="tipo"
+                            name="tipo"
+                            className={styles.input}
+                            value={formData.tipo}
                             onChange={handleChange}
                         >
                             <option value="usuario">Adotador</option>
@@ -202,5 +200,5 @@ export default function CriarConta() {
                 </p>
             </div>
         </div>
-    );
+    )
 }
