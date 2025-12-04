@@ -1,0 +1,202 @@
+/* Homepage.module.css */
+
+.container {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f8f9fa;
+    min-height: 100vh;
+}
+
+/* --- Header --- */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: white;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.logo {
+    color: #22c55e;
+    font-weight: 800;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.navButtons {
+    display: flex;
+    gap: 10px;
+}
+
+.navBtn {
+    padding: 8px 24px;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.btnAdotar {
+    background-color: #dcfce7;
+    color: #166534;
+}
+
+.btnDoar {
+    background-color: #f3f4f6;
+    color: #374151;
+}
+
+.userProfile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 600;
+    color: #374151;
+}
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    background-color: #e5e7eb;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* --- Hero Section --- */
+.hero {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    padding: 3rem 5%;
+    margin-bottom: 2rem;
+}
+
+.heroContent h1 {
+    font-size: 3rem;
+    color: #111827;
+    line-height: 1.2;
+}
+
+.highlight {
+    color: #22c55e;
+    display: block;
+    font-size: 1.5rem;
+    margin-top: 10px;
+    font-weight: 500;
+}
+
+.heroImage img {
+    max-width: 400px;
+    border-radius: 20px;
+}
+
+/* --- Search & Grid Section --- */
+.contentArea {
+    padding: 0 5%;
+    padding-bottom: 50px;
+}
+
+.searchBar {
+    background-color: white;
+    padding: 15px;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    margin-bottom: 20px;
+    gap: 10px;
+}
+
+.searchInput {
+    border: none;
+    flex: 1;
+    outline: none;
+    font-size: 1rem;
+    padding-left: 10px;
+}
+
+.filters {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.filterTag {
+    background-color: #dcfce7;
+    color: #166534;
+    padding: 5px 15px;
+    border-radius: 15px;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+/* --- Grid de Pets --- */
+.petsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 25px;
+}
+
+.card {
+    background-color: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.cardImage {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    background-color: #e5e7eb;
+}
+
+.cardInfo {
+    padding: 20px;
+}
+
+.cardInfo h3 {
+    margin: 0;
+    font-size: 1.25rem;
+    color: #111827;
+}
+
+.petDetails {
+    color: #6b7280;
+    font-size: 0.9rem;
+    margin-top: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.statusBadge {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    margin-top: 10px;
+    text-transform: uppercase;
+}
+/* ##166534 */
+
+.logoImage {
+    display: flex;
+    background-image: url(./imgs/logo\ \(1\).png);
+    width: 2rem;
+    height: 2rem;
+}
+
+.statusDisponivel { background-color: #fee2e2; color: #991b1b; }
+.statusAdotado { background-color: #dcfce7; color: #166534; }

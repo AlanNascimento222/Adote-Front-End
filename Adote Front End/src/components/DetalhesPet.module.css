@@ -1,0 +1,120 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f8f9fa;
+    padding: 2rem;
+    font-family: 'Inter', sans-serif;
+}
+
+.card {
+    background: #ffffff;
+    border-radius: 24px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+    display: flex;
+    max-width: 800px;
+    width: 100%;
+    overflow: hidden;
+    gap: 2rem;
+    padding: 2rem;
+    flex-direction: column;
+    /* Ensure vertical layout if needed, or keep flex for potential future columns */
+}
+
+/* Since we removed the image column, we can just let the content flow. 
+   If we want to center the text content, we can add alignment here. */
+
+.header {
+    margin-bottom: 2rem;
+}
+
+.name {
+    font-size: 3rem;
+    font-weight: 800;
+    color: #111827;
+    margin: 0;
+    line-height: 1.1;
+}
+
+.species {
+    font-size: 1.25rem;
+    color: #6b7280;
+    margin-top: 0.5rem;
+    font-weight: 500;
+}
+
+.statsGrid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.statBox {
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 1rem;
+}
+
+.statLabel {
+    font-size: 0.875rem;
+    color: #6b7280;
+    margin-bottom: 0.25rem;
+    display: block;
+}
+
+.statValue {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: #1f2937;
+    display: block;
+}
+
+.descriptionSection {
+    margin-bottom: 2rem;
+}
+
+.sectionTitle {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 1rem;
+}
+
+.description {
+    color: #6b7280;
+    line-height: 1.6;
+    font-size: 1rem;
+}
+
+.adoptButton {
+    background-color: #10b981;
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 12px;
+    font-size: 1.5rem;
+    font-weight: 700;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.2s, transform 0.1s;
+}
+
+.adoptButton:hover {
+    background-color: #059669;
+}
+
+.adoptButton:active {
+    transform: scale(0.98);
+}
+
+@media (max-width: 768px) {
+    .card {
+        padding: 1.5rem;
+    }
+
+    .name {
+        font-size: 2rem;
+    }
+}

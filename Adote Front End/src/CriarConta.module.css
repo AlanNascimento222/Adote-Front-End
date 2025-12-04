@@ -1,0 +1,148 @@
+/* CriarConta.module.css */
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f3f4f6; /* Fundo cinza claro suave */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding: 20px;
+}
+
+.card {
+  background-color: #ffffff;
+  padding: 40px;
+  border-radius: 24px; /* Bordas bem arredondadas como na imagem */
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+  width: 100%;
+  max-width: 800px;
+  text-align: center;
+}
+
+.title {
+  color: #111827;
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.subtitle {
+  color: #6b7280;
+  margin-bottom: 2rem;
+  font-size: 0.95rem;
+}
+
+/* Layout do Form */
+.form {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  text-align: left;
+}
+
+/* Em telas maiores, coloca os inputs lado a lado (2 colunas) */
+@media (min-width: 768px) {
+  .form {
+    grid-template-columns: 1fr 1fr;
+  }
+  
+  /* Faz o botão ocupar a largura total nas duas colunas */
+  .botaoWrapper {
+    grid-column: span 2;
+  }
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  font-size: 0.9rem;
+  color: #374151;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.input {
+  padding: 12px 16px;
+  border: 1px solid #d1d5db;
+  border-radius: 12px; /* Input arredondado */
+  font-size: 1rem;
+  background-color: #f9fafb;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.input:focus {
+  border-color: #22c55e; /* Verde foco */
+  background-color: #fff;
+  box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.1);
+}
+
+.input::placeholder {
+  color: #9ca3af;
+  font-size: 0.9rem;
+}
+
+.btnCriar {
+  width: 100%;
+  padding: 14px;
+  background-color: #22c55e; /* Verde do botão da imagem */
+  color: white;
+  border: none;
+  border-radius: 50px; /* Formato de pílula */
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  margin-top: 10px;
+}
+
+.btnCriar:hover {
+  background-color: #16a34a;
+}
+
+/* Mensagens de Erro/Sucesso */
+.mensagem {
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  font-size: 0.9rem;
+  grid-column: span 1;
+}
+
+@media (min-width: 768px) {
+  .mensagem {
+    grid-column: span 2;
+  }
+}
+
+.erro {
+  background-color: #fee2e2;
+  color: #dc2626;
+  border: 1px solid #fecaca;
+}
+
+.sucesso {
+  background-color: #dcfce7;
+  color: #16a34a;
+  border: 1px solid #bbf7d0;
+}
+
+.footerLink {
+  margin-top: 20px;
+  font-size: 0.9rem;
+  color: #6b7280;
+}
+
+.footerLink a {
+  color: #22c55e;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.footerLink a:hover {
+  text-decoration: underline;
+}
