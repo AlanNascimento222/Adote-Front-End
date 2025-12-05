@@ -75,6 +75,15 @@ export default function Homepage() {
                             Doar
                         </button>
                     )}
+                    {isAdmin && (
+                        <button
+                            className={`${styles.navBtn} ${styles.btnDoar}`}
+                            onClick={() => navigate('/gerenciar-usuarios')}
+                            style={{ marginLeft: '10px', backgroundColor: '#4b5563' }}
+                        >
+                            Gerenciar Usuários
+                        </button>
+                    )}
                 </div>
                 <div className={styles.userProfile}>
                     <span>Olá, {userName || 'Usuário'}</span>

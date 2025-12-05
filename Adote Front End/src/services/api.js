@@ -64,3 +64,28 @@ export const adotarPet = async (id) => {
 
   return response.data
 }
+
+export const deletarUsuario = async (id) => {
+  const token = localStorage.getItem('token')
+
+  const response = await api.delete(`/${id}`, {
+    headers: {
+      authorization: `${token}`
+    }
+  })
+
+  return response.data
+}
+
+export const listarUsuarios = async () => {
+  const token = localStorage.getItem('token')
+
+  // Tento listar os usuários na rota raiz do usuario
+  const response = await api.get("/", {
+    headers: {
+      authorization: `${token}`
+    }
+  })
+
+  return response.data
+}
