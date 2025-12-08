@@ -57,7 +57,10 @@ export default function Homepage() {
         // Filtro de Gênero
         const matchesGender = genderFilter ? pet.genero === genderFilter : true;
 
-        return matchesSearch && matchesGender;
+        // Filtro de Status (Apenas Disponíveis)
+        const matchesStatus = !pet.status || pet.status.toLowerCase() === 'disponível' || pet.status.toLowerCase() === 'disponivel';
+
+        return matchesSearch && matchesGender && matchesStatus;
     });
 
     return (
