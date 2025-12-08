@@ -1,79 +1,80 @@
-import { useState } from 'react';
-import styles from '../Home.module.css';
-import { login, api } from '../services/api';
-import { Link, useNavigate } from 'react-router-dom'; // Importe o useNavigate hook
+import { useState } from 'react'
+import styles from '../Home.module.css'
+import { login, api } from '../services/api'
+import { Link, useNavigate } from 'react-router-dom'
 
 export default function Home() {
-  const navigate = useNavigate(); // Inicializa o hook de navegação
+  // Inicializo o hook de navegação para poder redirecionar o usuário após o login
+  const navigate = useNavigate()
 
-  const [email, setEmail] = useState('');
-  const [senha, setSenha] = useState('');
-  const [loading, setLoading] = useState(false);
+  // Defino os estados para armazenar email, senha e o status de carregamento
+  const [email, setEmail] = useState('')
+  const [senha, setSenha] = useState('')
+  const [loading, setLoading] = useState(false)
 
   async function fazerLogin() {
     if (!email || !senha) {
-      alert("Preencha email e senha");
-      return;
+      alert("Preencha email e senha")
+      return
     }
 
-    setLoading(true);
+    setLoading(true)
 
     try {
-      const dados = await login(email, senha);
+      const dados = await login(email, senha)
 
-      console.log("Resposta do Backend:", dados);
+      console.log("Resposta do Backend:", dados)
 
       if (dados.token) {
-        localStorage.setItem('token', dados.token);
-        api.defaults.headers.common['Authorization'] = dados.token;
+        localStorage.setItem('token', dados.token)
+        api.defaults.headers.common['Authorization'] = dados.token
 
-        // Tenta extrair informações do token (se for JWT)
+        // Tento extrair informações do token (se for JWT) para identificar o usuário
         try {
           const parseJwt = (token) => {
             try {
-              return JSON.parse(atob(token.split('.')[1]));
+              return JSON.parse(atob(token.split('.')[1]))
             } catch (e) {
-              return null;
+              return null
             }
-          };
+          }
 
-          const decoded = parseJwt(dados.token);
-          console.log("Token Decodificado:", decoded);
+          const decoded = parseJwt(dados.token)
+          console.log("Token Decodificado:", decoded)
 
           if (decoded) {
-            // Verifica se é admin pelo token ou pela resposta direta
-            // Ajuste os campos conforme o seu backend retorna (ex: .admin, .role, .tipo)
-            const isAdmin = decoded.admin || decoded.tipo === 'admin' || dados.admin || dados.tipo === 'admin';
-            const nome = decoded.nome || dados.nome || decoded.sub || "Usuário"; // Fallback
+            // Verifico se o usuário é administrador e pego o nome dele
+            const isAdmin = decoded.admin || decoded.tipo === 'admin' || dados.admin || dados.tipo === 'admin'
+            const nome = decoded.nome || dados.nome || decoded.sub || "Usuário"
 
-            localStorage.setItem('usuarioAdmin', isAdmin ? 'true' : 'false');
-            localStorage.setItem('usuarioNome', nome);
+            localStorage.setItem('usuarioAdmin', isAdmin ? 'true' : 'false')
+            localStorage.setItem('usuarioNome', nome)
 
-            // Se tiver ID no token ou na resposta
+            // Se tiver ID no token ou na resposta, salvo no localStorage
             if (dados.usuarioId || decoded.id) {
-              localStorage.setItem('usuarioId', dados.usuarioId || decoded.id);
+              localStorage.setItem('usuarioId', dados.usuarioId || decoded.id)
             }
           }
         } catch (error) {
-          console.error("Erro ao processar token:", error);
+          console.error("Erro ao processar token:", error)
         }
 
-        navigate('/homepage');
+        navigate('/homepage')
       } else {
-        alert("Erro: O servidor não retornou o token.");
+        alert("Erro: O servidor não retornou o token.")
       }
     } catch (error) {
-      console.error("Erro no login:", error);
+      console.error("Erro no login:", error)
 
       if (error.response) {
-        alert(error.response.data.mensagem || "Erro ao realizar login");
+        alert(error.response.data.mensagem || "Erro ao realizar login")
       } else if (error.request) {
-        alert("Erro de conexão com o servidor.");
+        alert("Erro de conexão com o servidor.")
       } else {
-        alert("Ocorreu um erro inesperado.");
+        alert("Ocorreu um erro inesperado.")
       }
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
   }
 
@@ -128,5 +129,5 @@ export default function Home() {
         </div>
       </div>
     </>
-  );
+  )
 }
